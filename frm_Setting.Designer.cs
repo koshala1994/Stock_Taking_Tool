@@ -57,7 +57,7 @@
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(923, 310);
+            this.panel1.Size = new System.Drawing.Size(923, 362);
             this.panel1.TabIndex = 0;
             // 
             // tabControl1
@@ -69,7 +69,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(919, 305);
+            this.tabControl1.Size = new System.Drawing.Size(919, 354);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -83,7 +83,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(911, 272);
+            this.tabPage1.Size = new System.Drawing.Size(911, 321);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main DB Setting";
             this.tabPage1.UseVisualStyleBackColor = true;

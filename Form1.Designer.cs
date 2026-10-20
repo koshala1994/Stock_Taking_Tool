@@ -62,16 +62,16 @@
             this.panel2.Controls.Add(this.btn_Cashier_Download);
             this.panel2.Controls.Add(this.btn_Counting);
             this.panel2.Controls.Add(this.btn_Download);
-            this.panel2.Location = new System.Drawing.Point(0, 31);
+            this.panel2.Location = new System.Drawing.Point(3, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(2031, 101);
+            this.panel2.Size = new System.Drawing.Size(1144, 118);
             this.panel2.TabIndex = 1;
             // 
             // pb_Download
             // 
             this.pb_Download.Location = new System.Drawing.Point(3, 67);
             this.pb_Download.Name = "pb_Download";
-            this.pb_Download.Size = new System.Drawing.Size(407, 23);
+            this.pb_Download.Size = new System.Drawing.Size(451, 46);
             this.pb_Download.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pb_Download.TabIndex = 3;
             this.pb_Download.Visible = false;
@@ -156,11 +156,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 906);
+            this.ClientSize = new System.Drawing.Size(1152, 447);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frm_Stock_Taking_Tool";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Onimta  Stock Taking Tool";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

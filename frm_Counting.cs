@@ -46,13 +46,19 @@ namespace Stock_Taking_Tool
             // ---------------
 
             lbl_Unit_No.Text = cls_DbCreate.GetUnit_No();
-            //lbl_User.Text = cls_DbCreate.GetCasher_Name();
+            lbl_User.Text = cls_Session.Cashier_Name;
 
             rdo_Auto.Checked = true;
             LoadGrid();
 
             ActiveControl = txt_Item_enter;
             Shown += delegate { txt_Item_enter.Focus(); };
+            KeyPreview = true;
+            KeyDown += Form_KeyDown;
+            dgv_Transaction.MultiSelect = false;
+            dgv_Transaction.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+
         }
         private void txt_Item_enter_KeyDown(object sender, KeyEventArgs e)
         {
@@ -173,17 +179,34 @@ namespace Stock_Taking_Tool
             LoadGrid();
             txt_Item_enter.Focus();
         }
-        private void btn_Void_Click(object sender, EventArgs e)
+        public void VoidSelected()
         {
-            if(dgv_Transaction.CurrentRow == null)
+            if (dgv_Transaction.CurrentRow == null)
             {
-                MessageBox.Show("Select the line..");
+                MessageBox.Show("There is no selected Row");
                 return;
             }
-            long id = Convert.ToInt64(dgv_Transaction.CurrentRow.Cells["Id"].Value);
+            DataRowView drv = dgv_Transaction.CurrentRow.DataBoundItem as DataRowView;
+            if (drv == null) return;
+
+            long id = Convert.ToInt64(drv["Id"]);
             cls_DbCreate.VoidRow(id);
+
             LoadGrid();
             txt_Item_enter.Focus();
+        }
+        private void btn_Void_Click(object sender, EventArgs e)
+        {
+            VoidSelected();
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                VoidSelected();
+            }
         }
         private void LoadGrid()
         {
@@ -227,11 +250,12 @@ namespace Stock_Taking_Tool
         {
             SaveBill(true);
         }
+        private DateTime LastSaved = DateTime.MinValue;
         private void SaveBill(bool printAfter)
         {
             if(dgv_Transaction.Rows.Count ==0)
             {
-                MessageBox.Show("There is a not data in a grid");
+                if ((DateTime.Now - LastSaved).TotalSeconds > 2) MessageBox.Show("There is a no Data in a Grid");
                 return;
             }
             if (MessageBox.Show("Items" + dgv_Transaction.Rows.Count + "Save?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;

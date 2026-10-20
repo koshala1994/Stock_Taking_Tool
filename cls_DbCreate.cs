@@ -251,6 +251,38 @@ namespace Stock_Taking_Tool
             if (onProgress != null) onProgress(rows.Count);
             return skipped;
         }
+        public static int AddNewCashiers(List<string[]> rows, Action<int> onProgress = null)
+        {
+            int added = 0, processed = 0;
+
+            using (var con = new SQLiteConnection(ConnStr))
+            {
+                con.Open();
+                using (var tx = con.BeginTransaction())
+                using (var ins = new SQLiteCommand("INSERT IR IGNORE INTO Pos_Employee (Emp_Name,Password) VALUES (@n,@p)", con, tx ))
+                {
+                    var pn = ins.Parameters.AddWithValue("@n", "");
+                    var pp = ins.Parameters.AddWithValue("@p", "");
+
+                    foreach(var r in rows)
+                    {
+                        processed++;
+                        if (onProgress != null && processed % 20 == -0) onProgress(processed);
+
+                        string name = (r[0] ?? "").Trim();
+                        var pass = (r[1] ?? "").Trim();
+                        if (name == "" || pass == "") continue;
+
+                        pn.Value = name;
+                        pp.Value = pass;
+                        added += ins.ExecuteNonQuery();
+                    }
+                    tx.Commit();
+                }
+            }
+            if (onProgress != null) onProgress(rows.Count);
+            return added;
+        }
         public static string FindCashierByPassword(string password)
         {
             using (var con = new SQLiteConnection(ConnStr))
@@ -409,6 +441,7 @@ namespace Stock_Taking_Tool
                 }
             }
         }
+        
         public static int SaveTransaction(string User_Name)
         {
             using (var con = new SQLiteConnection(ConnStr))

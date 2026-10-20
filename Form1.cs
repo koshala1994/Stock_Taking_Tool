@@ -118,9 +118,15 @@ namespace Stock_Taking_Tool
         }
         private void btn_Counting_Click(object sender, EventArgs e)
         {
+            cls_Session.Cashier_Name = "";
+
+            using (var lg = new frm_Cashier_Login())
+            {
+                if (lg.ShowDialog(this) != DialogResult.OK) return;
+            }
             using (var f = new frm_Counting())
             {
-                f.ShowDialog();
+                f.ShowDialog(this);
             }
 
         }

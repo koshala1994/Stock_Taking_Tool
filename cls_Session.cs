@@ -14,7 +14,7 @@ namespace Stock_Taking_Tool
         public static string Cashier_Name { get; set; }
         public static bool IsAdmin
         {
-            get { return Role == "admin"; }
+            get { return Role == "ADMIN"; }
         }
     }
 }
