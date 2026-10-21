@@ -92,7 +92,6 @@ namespace Stock_Taking_Tool
         {
             txt_Password.Clear();
         }
-
         private void btn_Space_Click(object sender, EventArgs e)
         {
             InsertText(" ");

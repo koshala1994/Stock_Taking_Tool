@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Drawing;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Stock_Taking_Tool.cls_DbCreate;
 
 namespace Stock_Taking_Tool
 {
@@ -88,16 +90,16 @@ namespace Stock_Taking_Tool
         private void btn_Item_Find_Click(object sender, EventArgs e)
         {
             string text = txt_Item_enter.Text.Trim();
-            
+
             if (text == "") return;
 
-            if(chk_Error.Checked)
+            if (chk_Error.Checked)
             {
                 DoError(text);
                 return;
             }
             string Unit = cls_DbCreate.GetUnit_No();
-            if(Unit == "")
+            if (Unit == "")
             {
                 MessageBox.Show("Save the unit no Using in Setting Form!!");
                 return;
@@ -111,44 +113,43 @@ namespace Stock_Taking_Tool
                 txt_Item_enter.Focus();
                 return;
             }
-            cls_DbCreate.cls_Item item;
-            
+            bool loop = rdo_Manual.Checked && dt.Rows.Count > 1;
 
-            using (var f = new frm_Item_Find(dt))
+            do
             {
-                if(f.ShowDialog(this) != DialogResult.OK)
+                cls_Item item;
+
+                using (var f = new frm_Item_Find(dt))
                 {
-                    txt_Item_enter.SelectAll();
-                    txt_Item_enter.Focus();
-                    return;
-                }
-                item = new cls_DbCreate.cls_Item
-                {
-                    Prod_Code = f.SelCode,
-                    Prod_Name = f.SelName,
-                    Barcode = f.SelBarcode,
-                    Selling_Price = f.SelPrice
-                };
-            }
-            if (rdo_Manual.Checked)
-            {
-                double qty;
-                using (var q = new frm_Qty(item.Prod_Name, item.Selling_Price))
-                {
-                    if (q.ShowDialog(this) != DialogResult.OK)
+                    if (f.ShowDialog(this) != DialogResult.OK) break;
+
+                    item = new cls_Item
                     {
-                        txt_Item_enter.SelectAll();
-                        txt_Item_enter.Focus();
-                        return;
-                    }
-                    qty = q.Qty;
+                        Prod_Code = f.SelCode,
+                        Prod_Name = f.SelName,
+                        Barcode = f.SelBarcode,
+                        Selling_Price = f.SelPrice
+                    };
                 }
-                cls_DbCreate.AddorUpdateTempTransaction(Unit, item, qty);
+
+                if (rdo_Manual.Checked)
+                {
+                    double qty;
+                    using (var q = new frm_Qty(item.Prod_Name, item.Selling_Price))
+                    {
+                        if (q.ShowDialog(this) != DialogResult.OK) continue;
+                        qty = q.Qty;
+                    }
+                    cls_DbCreate.AddorUpdateTempTransaction(Unit, item, qty);
+                }
+                else
+                {
+                    cls_DbCreate.AddTemp(Unit, item, 1);
+                }
+
+                LoadGrid();
             }
-            else
-            {
-                cls_DbCreate.AddTemp(Unit, item,  1);
-            }
+            while (loop);
             txt_Item_enter.Clear();
             LoadGrid();
             txt_Item_enter.Focus();
