@@ -62,32 +62,19 @@ namespace Stock_Taking_Tool
 
 
         }
+        private bool _busy = false;
         private void txt_Item_enter_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                btn_Item_Find.PerformClick();
-            }
+            if (e.KeyCode != Keys.Enter) return;
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+
+            if (_busy) return;
+            _busy = true; 
+            try{ ProcessScan(); }
+            finally { _busy = false; }
         }
-        private void KeyPad_Click(object sender, EventArgs e)
-        {
-            txt_Item_enter.Text += ((Button)sender).Text;
-            txt_Item_enter.Focus();
-            txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
-        }
-        private void btn_Clear_Click(object sender, EventArgs e)
-        {
-            txt_Item_enter.Clear();
-            txt_Item_enter.Focus();
-        }
-        private void btn_Back_Click(object sender, EventArgs e)
-        {
-            if (txt_Item_enter.Text.Length > 0) txt_Item_enter.Text = txt_Item_enter.Text.Substring(0, txt_Item_enter.Text.Length - 1);
-            txt_Item_enter.Focus();
-            txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
-        }
-        private void btn_Item_Find_Click(object sender, EventArgs e)
+        private void ProcessScan()
         {
             string text = txt_Item_enter.Text.Trim();
 
@@ -113,46 +100,66 @@ namespace Stock_Taking_Tool
                 txt_Item_enter.Focus();
                 return;
             }
-            bool loop = rdo_Manual.Checked && dt.Rows.Count > 1;
+            cls_Item item;
 
-            do
+            using (var f = new frm_Item_Find(dt))
             {
-                cls_Item item;
+                if (f.ShowDialog(this) != DialogResult.OK) return;
 
-                using (var f = new frm_Item_Find(dt))
+                item = new cls_Item
                 {
-                    if (f.ShowDialog(this) != DialogResult.OK) break;
-
-                    item = new cls_Item
-                    {
-                        Prod_Code = f.SelCode,
-                        Prod_Name = f.SelName,
-                        Barcode = f.SelBarcode,
-                        Selling_Price = f.SelPrice
-                    };
-                }
-
-                if (rdo_Manual.Checked)
-                {
-                    double qty;
-                    using (var q = new frm_Qty(item.Prod_Name, item.Selling_Price))
-                    {
-                        if (q.ShowDialog(this) != DialogResult.OK) continue;
-                        qty = q.Qty;
-                    }
-                    cls_DbCreate.AddorUpdateTempTransaction(Unit, item, qty);
-                }
-                else
-                {
-                    cls_DbCreate.AddTemp(Unit, item, 1);
-                }
-
-                LoadGrid();
+                    Prod_Code = f.SelCode,
+                    Prod_Name = f.SelName,
+                    Barcode = f.SelBarcode,
+                    Selling_Price = f.SelPrice
+                };
             }
-            while (loop);
+
+            if (rdo_Manual.Checked)
+            {
+                double qty;
+                using (var q = new frm_Qty(item.Prod_Name, item.Selling_Price))
+                {
+                    q.ShowDialog(this);
+                    if(!q.Accepted)
+                    {
+                        txt_Item_enter.SelectAll();
+                        txt_Item_enter.Focus();
+                        return;
+                    }
+                    qty = q.Qty;
+                }
+                cls_DbCreate.AddorUpdateTempTransaction(Unit, item, qty);
+            }
+            else
+            {
+                cls_DbCreate.AddTemp(Unit, item, 1);
+            }
+
             txt_Item_enter.Clear();
             LoadGrid();
             txt_Item_enter.Focus();
+        }
+        private void KeyPad_Click(object sender, EventArgs e)
+        {
+            txt_Item_enter.Text += ((Button)sender).Text;
+            txt_Item_enter.Focus();
+            txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
+        }
+        private void btn_Clear_Click(object sender, EventArgs e)
+        {
+            txt_Item_enter.Clear();
+            txt_Item_enter.Focus();
+        }
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+            if (txt_Item_enter.Text.Length > 0) txt_Item_enter.Text = txt_Item_enter.Text.Substring(0, txt_Item_enter.Text.Length - 1);
+            txt_Item_enter.Focus();
+            txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
+        }
+        private void btn_Item_Find_Click(object sender, EventArgs e)
+        {
+            ProcessScan();
         }
         private void DoError(string text)
         {
@@ -180,18 +187,22 @@ namespace Stock_Taking_Tool
             LoadGrid();
             txt_Item_enter.Focus();
         }
+        private DateTime _laseVoid = DateTime.MinValue;
         public void VoidSelected()
         {
-            if (dgv_Transaction.CurrentRow == null)
+            if ((DateTime.Now - _laseVoid).TotalMilliseconds < 100) return;
+            DataGridViewRow row = dgv_Transaction.SelectedRows.Count > 0 ? dgv_Transaction.SelectedRows[0] : dgv_Transaction.CurrentRow;
+            if(row == null)
             {
-                MessageBox.Show("There is no selected Row");
+                MessageBox.Show("There is no Sellected Row");
                 return;
             }
-            DataRowView drv = dgv_Transaction.CurrentRow.DataBoundItem as DataRowView;
+            DataRowView drv = row.DataBoundItem as DataRowView;
             if (drv == null) return;
 
             long id = Convert.ToInt64(drv["Id"]);
             cls_DbCreate.VoidRow(id);
+            _laseVoid = DateTime.Now;
 
             LoadGrid();
             txt_Item_enter.Focus();

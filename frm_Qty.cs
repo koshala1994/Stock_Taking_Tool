@@ -29,9 +29,10 @@ namespace Stock_Taking_Tool
             foreach (Button b in new Button[] { btn_Zero, btn_one, btn_Two, btn_Three, btn_Four, btn_Five, btn_Six, btn_Seven, btn_Eight, btn_nine })
                 b.Click += Digit_Click;
 
-            btn_Star.Click += btn_Star_Click;
+            //btn_Star.Click += btn_Star_Click;
             btn_Back.Click += btn_Back_Click;
             btn_Enter.Click -= btn_Enter_Click;
+            btn_Enter.Click += btn_Enter_Click;
 
             txt_Qty.KeyPress += txt_Qty_KeyPress;
             Shown += delegate { txt_Qty.Focus(); };
@@ -57,12 +58,12 @@ namespace Stock_Taking_Tool
             if (txt_Qty.Text.Length < 10) txt_Qty.Text += ((Button)sendder).Text;
             FocusEnd();
         }
-        private void btn_Star_Click(object sender, EventArgs e)
-        {
-            if (txt_Qty.Text.Length > 0 && !txt_Qty.Text.Contains("*"))
-                txt_Qty.Text += "*";
-            FocusEnd();
-        }
+        //private void btn_Star_Click(object sender, EventArgs e)
+        //{
+        //    if (txt_Qty.Text.Length > 0 && !txt_Qty.Text.Contains("*"))
+        //        txt_Qty.Text += "*";
+        //    FocusEnd();
+        //}
         private void btn_Back_Click(object sender, EventArgs e)
         {
             if (txt_Qty.Text.Length > 0)
@@ -78,7 +79,7 @@ namespace Stock_Taking_Tool
         {
             if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar)) return;
 
-            if (e.KeyChar == '*' && txt_Qty.Text.Length > 0 && !txt_Qty.Text.Contains("*")) return;
+            //if (e.KeyChar == '*' && txt_Qty.Text.Length > 0 && !txt_Qty.Text.Contains("*")) return;
 
             e.Handled = true;
         }
@@ -87,30 +88,31 @@ namespace Stock_Taking_Tool
             double q;
             if(!TryGetQty(txt_Qty.Text, out q) || q <= 0)
             {
-                MessageBox.Show("Enter the Qty Correct Format. (ex: 12 or 12*6)");
+                MessageBox.Show("Enter the Qty Correct Format. (ex: 12 )");
                 txt_Qty.Focus();
                 return;
             }
             Qty = q;
             Accepted = true;
-            Close();
+            DialogResult = DialogResult.OK;
         }
 
-        //protected override bool PrccessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    if(keyData == Keys.Enter)
-        //    {
-        //        btn_Enter_Click(this, EventArgs.Empty);
-        //        return true;
-        //    }
-        //    if(keyData == Keys.Escape)
-        //    {
-        //        Close();
-        //        return true;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                btn_Enter_Click(this, EventArgs.Empty);
+                return true;
+            }
+            if (keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                Close();
+                return true;
 
-        //    }
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private static bool TryGetQty(string text, out double result)
         {
             result = 0;

@@ -115,7 +115,7 @@
             this.btn_Star.TabIndex = 9;
             this.btn_Star.Text = "*";
             this.btn_Star.UseVisualStyleBackColor = false;
-            this.btn_Star.Click += new System.EventHandler(this.btn_Star_Click);
+            //this.btn_Star.Click += new System.EventHandler(this.btn_Star_Click);
             // 
             // btn_Three
             // 

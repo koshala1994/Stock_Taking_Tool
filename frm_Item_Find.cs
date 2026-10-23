@@ -41,10 +41,13 @@ namespace Stock_Taking_Tool
         }
         private void dgv_Item_Find_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) PicRow(e.RowIndex);          
+            PicRow(e.RowIndex);          
         }
+        private bool _picked = false;
         private void PicRow(int rowIndex)
         {
+            if (_picked || rowIndex < 0) return;
+            _picked = true;
             DataRowView r = (DataRowView)dgv_Item_Find.Rows[rowIndex].DataBoundItem;
             SelCode = r["Prod_Code"].ToString();
             SelName = r["Prod_Name"].ToString();
@@ -55,11 +58,17 @@ namespace Stock_Taking_Tool
 
             DialogResult = DialogResult.OK;
         }
+        private bool _busy = false;
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Enter && dgv_Item_Find.CurrentRow != null)
             {
-                PicRow(dgv_Item_Find.CurrentRow.Index);
+                if (_busy) return true;
+                _busy = true;
+                try { PicRow(dgv_Item_Find.CurrentRow.Index); }
+                finally { _busy = false; }
+                
                 return true;
             }
             if(keyData == Keys.Escape)
