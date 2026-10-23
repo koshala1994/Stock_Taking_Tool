@@ -239,6 +239,12 @@
     <Compile Include="frm_Setting.Designer.cs">
       <DependentUpon>frm_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Splash.Designer.cs">
+      <DependentUpon>frm_Splash.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -262,6 +268,9 @@
     <EmbeddedResource Include="frm_Setting.resx">
       <DependentUpon>frm_Setting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_Splash.resx">
+      <DependentUpon>frm_Splash.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -270,6 +279,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -284,6 +294,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\Save.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\Print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\Download.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\Account.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Icon\stocktaking.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Data.SqlClient.SNI.7.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.7.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />

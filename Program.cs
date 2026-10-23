@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing.Text;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,14 +20,9 @@ namespace Stock_Taking_Tool
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (var login = new frm_Loging())
-            {
-                if (login.ShowDialog() != DialogResult.OK)
-                    return;
-            }
-            cls_MainDb.Load();
-            cls_DbCreate.Init();
-                Application.Run(new frm_Stock_Taking_Tool());
+            Application.Run(new frm_Splash());
+
         }
+        
     }
 }

@@ -20,11 +20,28 @@ namespace Stock_Taking_Tool
         {
             InitializeComponent();
         }
+        private bool AdminLoging()
+        {
+            cls_Session.Role = null;
+
+            using (var lg = new frm_Loging())
+            {
+                if (lg.ShowDialog(this) != DialogResult.OK) return false;
+            }
+            if(!cls_Session.IsAdmin)
+            {
+                MessageBox.Show("All Access are Admin Login Only!!!!");
+                return false;
+            }
+            return true;
+        }
         private void settingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!AdminLoging()) return;
+            
             using (var f = new frm_Setting())
             {
-                f.ShowDialog();
+                f.ShowDialog(this);
             }
 
         }
@@ -130,7 +147,6 @@ namespace Stock_Taking_Tool
             }
 
         }
-
         private async void btn_Cashier_Download_Click(object sender, EventArgs e)
         {
             //if (!cls_Session.RequireAdmin(this)) return;
@@ -165,7 +181,6 @@ namespace Stock_Taking_Tool
                 btn_Download.Enabled = true;
             }
         }
-
         private int[] DoDownloadCashier(string connStr,IProgress<int> progress)
         {
             var rows = new List<string[]>();

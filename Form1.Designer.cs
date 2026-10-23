@@ -64,14 +64,14 @@
             this.panel2.Controls.Add(this.btn_Download);
             this.panel2.Location = new System.Drawing.Point(3, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1144, 118);
+            this.panel2.Size = new System.Drawing.Size(755, 118);
             this.panel2.TabIndex = 1;
             // 
             // pb_Download
             // 
             this.pb_Download.Location = new System.Drawing.Point(3, 67);
             this.pb_Download.Name = "pb_Download";
-            this.pb_Download.Size = new System.Drawing.Size(451, 46);
+            this.pb_Download.Size = new System.Drawing.Size(749, 46);
             this.pb_Download.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pb_Download.TabIndex = 3;
             this.pb_Download.Visible = false;
@@ -80,9 +80,11 @@
             // 
             this.btn_Cashier_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(224)))), ((int)(((byte)(198)))));
             this.btn_Cashier_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Cashier_Download.Location = new System.Drawing.Point(234, 3);
+            this.btn_Cashier_Download.Image = global::Stock_Taking_Tool.Properties.Resources.Account;
+            this.btn_Cashier_Download.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Cashier_Download.Location = new System.Drawing.Point(241, 3);
             this.btn_Cashier_Download.Name = "btn_Cashier_Download";
-            this.btn_Cashier_Download.Size = new System.Drawing.Size(220, 58);
+            this.btn_Cashier_Download.Size = new System.Drawing.Size(270, 58);
             this.btn_Cashier_Download.TabIndex = 2;
             this.btn_Cashier_Download.Text = "Cashier Download";
             this.btn_Cashier_Download.UseVisualStyleBackColor = false;
@@ -92,9 +94,11 @@
             // 
             this.btn_Counting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(167)))), ((int)(((byte)(224)))));
             this.btn_Counting.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Counting.Location = new System.Drawing.Point(465, 3);
+            this.btn_Counting.Image = global::Stock_Taking_Tool.Properties.Resources.stocktaking;
+            this.btn_Counting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Counting.Location = new System.Drawing.Point(517, 3);
             this.btn_Counting.Name = "btn_Counting";
-            this.btn_Counting.Size = new System.Drawing.Size(220, 58);
+            this.btn_Counting.Size = new System.Drawing.Size(235, 58);
             this.btn_Counting.TabIndex = 1;
             this.btn_Counting.Text = "Stock Counting";
             this.btn_Counting.UseVisualStyleBackColor = false;
@@ -104,9 +108,11 @@
             // 
             this.btn_Download.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(223)))), ((int)(((byte)(146)))));
             this.btn_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Download.Image = global::Stock_Taking_Tool.Properties.Resources.Download;
+            this.btn_Download.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Download.Location = new System.Drawing.Point(3, 3);
             this.btn_Download.Name = "btn_Download";
-            this.btn_Download.Size = new System.Drawing.Size(220, 58);
+            this.btn_Download.Size = new System.Drawing.Size(232, 58);
             this.btn_Download.TabIndex = 0;
             this.btn_Download.Text = "Item Download";
             this.btn_Download.UseVisualStyleBackColor = false;
@@ -136,7 +142,7 @@
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
@@ -156,7 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1152, 447);
+            this.ClientSize = new System.Drawing.Size(762, 447);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;

@@ -33,8 +33,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txt_Item_enter = new System.Windows.Forms.TextBox();
-            this.btn_Item_Find = new System.Windows.Forms.Button();
-            this.btn_Save = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btn_Back = new System.Windows.Forms.Button();
             this.btn_Zero = new System.Windows.Forms.Button();
@@ -48,7 +46,6 @@
             this.btn_Nine = new System.Windows.Forms.Button();
             this.btn_Eight = new System.Windows.Forms.Button();
             this.btn_Seven = new System.Windows.Forms.Button();
-            this.btn_Save_and_Print = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_Transaction = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -60,6 +57,9 @@
             this.chk_Error = new System.Windows.Forms.CheckBox();
             this.rdo_Manual = new System.Windows.Forms.RadioButton();
             this.rdo_Auto = new System.Windows.Forms.RadioButton();
+            this.btn_Item_Find = new System.Windows.Forms.Button();
+            this.btn_Save = new System.Windows.Forms.Button();
+            this.btn_Save_and_Print = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -101,37 +101,6 @@
             this.txt_Item_enter.Size = new System.Drawing.Size(1147, 53);
             this.txt_Item_enter.TabIndex = 0;
             this.txt_Item_enter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Item_enter_KeyDown);
-            // 
-            // btn_Item_Find
-            // 
-            this.btn_Item_Find.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.btn_Item_Find.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Item_Find.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Item_Find.ForeColor = System.Drawing.Color.White;
-            this.btn_Item_Find.Location = new System.Drawing.Point(1195, 32);
-            this.btn_Item_Find.Name = "btn_Item_Find";
-            this.btn_Item_Find.Size = new System.Drawing.Size(150, 70);
-            this.btn_Item_Find.TabIndex = 6;
-            this.btn_Item_Find.Text = "find";
-            this.btn_Item_Find.UseVisualStyleBackColor = false;
-            this.btn_Item_Find.Click += new System.EventHandler(this.btn_Item_Find_Click);
-            // 
-            // btn_Save
-            // 
-            this.btn_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
-            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Save.FlatAppearance.BorderColor = System.Drawing.Color.Green;
-            this.btn_Save.FlatAppearance.BorderSize = 2;
-            this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Save.ForeColor = System.Drawing.Color.White;
-            this.btn_Save.Location = new System.Drawing.Point(1454, 864);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(210, 72);
-            this.btn_Save.TabIndex = 7;
-            this.btn_Save.Text = "Save";
-            this.btn_Save.UseVisualStyleBackColor = false;
-            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // panel4
             // 
@@ -323,23 +292,6 @@
             this.btn_Seven.Text = "7";
             this.btn_Seven.UseVisualStyleBackColor = false;
             // 
-            // btn_Save_and_Print
-            // 
-            this.btn_Save_and_Print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btn_Save_and_Print.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Save_and_Print.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btn_Save_and_Print.FlatAppearance.BorderSize = 2;
-            this.btn_Save_and_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Save_and_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Save_and_Print.ForeColor = System.Drawing.Color.White;
-            this.btn_Save_and_Print.Location = new System.Drawing.Point(1776, 864);
-            this.btn_Save_and_Print.Name = "btn_Save_and_Print";
-            this.btn_Save_and_Print.Size = new System.Drawing.Size(210, 72);
-            this.btn_Save_and_Print.TabIndex = 8;
-            this.btn_Save_and_Print.Text = "Print";
-            this.btn_Save_and_Print.UseVisualStyleBackColor = false;
-            this.btn_Save_and_Print.Click += new System.EventHandler(this.btn_Save_and_Print_Click);
-            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -476,6 +428,60 @@
             this.rdo_Auto.TabStop = true;
             this.rdo_Auto.Text = "Auto";
             this.rdo_Auto.UseVisualStyleBackColor = true;
+            // 
+            // btn_Item_Find
+            // 
+            this.btn_Item_Find.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btn_Item_Find.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Item_Find.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Item_Find.ForeColor = System.Drawing.Color.White;
+            this.btn_Item_Find.Image = global::Stock_Taking_Tool.Properties.Resources.Search;
+            this.btn_Item_Find.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Item_Find.Location = new System.Drawing.Point(1195, 32);
+            this.btn_Item_Find.Name = "btn_Item_Find";
+            this.btn_Item_Find.Size = new System.Drawing.Size(150, 70);
+            this.btn_Item_Find.TabIndex = 6;
+            this.btn_Item_Find.Text = "find";
+            this.btn_Item_Find.UseVisualStyleBackColor = false;
+            this.btn_Item_Find.Click += new System.EventHandler(this.btn_Item_Find_Click);
+            // 
+            // btn_Save
+            // 
+            this.btn_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
+            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Save.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.btn_Save.FlatAppearance.BorderSize = 2;
+            this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Save.ForeColor = System.Drawing.Color.White;
+            this.btn_Save.Image = global::Stock_Taking_Tool.Properties.Resources.Save;
+            this.btn_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Save.Location = new System.Drawing.Point(1454, 864);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Size = new System.Drawing.Size(210, 72);
+            this.btn_Save.TabIndex = 7;
+            this.btn_Save.Text = "Save";
+            this.btn_Save.UseVisualStyleBackColor = false;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // btn_Save_and_Print
+            // 
+            this.btn_Save_and_Print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
+            this.btn_Save_and_Print.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Save_and_Print.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btn_Save_and_Print.FlatAppearance.BorderSize = 2;
+            this.btn_Save_and_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Save_and_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Save_and_Print.ForeColor = System.Drawing.Color.White;
+            this.btn_Save_and_Print.Image = global::Stock_Taking_Tool.Properties.Resources.Print;
+            this.btn_Save_and_Print.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Save_and_Print.Location = new System.Drawing.Point(1776, 864);
+            this.btn_Save_and_Print.Name = "btn_Save_and_Print";
+            this.btn_Save_and_Print.Size = new System.Drawing.Size(210, 72);
+            this.btn_Save_and_Print.TabIndex = 8;
+            this.btn_Save_and_Print.Text = "Print";
+            this.btn_Save_and_Print.UseVisualStyleBackColor = false;
+            this.btn_Save_and_Print.Click += new System.EventHandler(this.btn_Save_and_Print_Click);
             // 
             // frm_Counting
             // 

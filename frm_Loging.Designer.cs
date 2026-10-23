@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Loging));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.txt_Password = new System.Windows.Forms.TextBox();
@@ -1138,8 +1139,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 580);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frm_Loging";
-            this.Text = "frm_Loging";
+            this.Text = "Admin Loging";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

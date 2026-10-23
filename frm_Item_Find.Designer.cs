@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Item_Find));
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv_Item_Find = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
@@ -61,8 +62,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1471, 724);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frm_Item_Find";
-            this.Text = "frm_Item_Find";
+            this.Text = "Item Find";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Item_Find)).EndInit();
             this.ResumeLayout(false);

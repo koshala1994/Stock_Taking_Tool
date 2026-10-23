@@ -219,6 +219,11 @@ namespace Stock_Taking_Tool
                 e.Handled = true;
                 VoidSelected();
             }
+            if(e.Control)
+            {
+                btn_Item_Find.PerformClick();
+                e.SuppressKeyPress = true;
+            }
         }
         private void LoadGrid()
         {

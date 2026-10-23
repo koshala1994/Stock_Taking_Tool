@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Qty));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btn_Back = new System.Windows.Forms.Button();
@@ -115,7 +116,6 @@
             this.btn_Star.TabIndex = 9;
             this.btn_Star.Text = "*";
             this.btn_Star.UseVisualStyleBackColor = false;
-            //this.btn_Star.Click += new System.EventHandler(this.btn_Star_Click);
             // 
             // btn_Three
             // 
@@ -263,8 +263,9 @@
             this.ClientSize = new System.Drawing.Size(460, 745);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frm_Qty";
-            this.Text = "frm_Qty";
+            this.Text = "Quantity";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
