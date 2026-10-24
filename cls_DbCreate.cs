@@ -441,7 +441,6 @@ namespace Stock_Taking_Tool
                 }
             }
         }
-        
         public static int SaveTransaction(string User_Name)
         {
             using (var con = new SQLiteConnection(ConnStr))
@@ -479,6 +478,22 @@ namespace Stock_Taking_Tool
                     return count;
                 }
             }
+        }
+        public static DataTable GetSavedTransaction()
+        {
+            var dt = new DataTable();
+            using (var con = new SQLiteConnection(ConnStr))
+            {
+                con.Open();
+                string sql = @"SELECT Id, Unit_No, Prod_Code, Prod_Name, Barcode, Qty, Selling_Price, User_Name, Saved_At, Batch_No
+                       FROM Stock_Transaction ORDER BY Id";
+                using (var cmd = new SQLiteCommand(sql, con))
+                using (var rd = cmd.ExecuteReader())
+                {
+                    dt.Load(rd);
+                }
+            }
+            return dt;
         }
     }
 }

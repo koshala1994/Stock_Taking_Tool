@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using System.Globalization;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace Stock_Taking_Tool
 {
@@ -71,7 +74,7 @@ namespace Stock_Taking_Tool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Download Faild:\n " + ex.Message);
+                MessageBox.Show(ex.ToString(),"Download Eror", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -217,6 +220,131 @@ namespace Stock_Taking_Tool
                 if (rows.Count > 0) progress.Report(60 + (int)(40L * done / rows.Count));
             });
             return new int[] { rows.Count, skipped };
+        }
+
+        private async void btn_Export_Click(object sender, EventArgs e)
+        {
+            string folderpath = Properties.Settings.Default.ExportPath;
+            if(string.IsNullOrWhiteSpace(folderpath))
+            {
+                MessageBox.Show("Setup the  Export Path in Setting Tab");
+                return;
+            }
+            string path = Path.Combine(folderpath, "Stock_Taking_" + DateTime.Now.ToString("ddMMyyyy_HH:mm:ss") + ".xlsx");
+
+            btn_Export.Enabled = false;
+            pb_Download.Value = 0;
+            pb_Download.Visible = true;
+
+            var progress = new Progress<int>(p => pb_Download.Value = Math.Max(0, Math.Min(100, p)));
+
+            try
+            {
+                int n = await Task.Run(() => DoExport(path, progress));
+
+                if(n == 0)
+                {
+                    MessageBox.Show("There is no Data to the Export");
+                }
+                else
+                {
+                    pb_Download.Value = 100;
+                    MessageBox.Show(n + "row export una: \n" + path);
+                }
+            }
+            catch (IOException )
+            {
+                MessageBox.Show("There is a file open with a nother tab (ex: Excel).close and try again");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Export Faild \n" + ex.Message);
+            }
+            finally
+            {
+                pb_Download.Visible = false;
+                btn_Export.Enabled = true;
+            }
+        }
+        private int DoExport(string path, IProgress<int> progress)
+        {
+            progress.Report(5);
+
+            DataTable dt = cls_DbCreate.GetSavedTransaction();
+            int total = dt.Rows.Count;
+            if (total == 0) return 0;
+
+            string dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+            using (var wb = new XLWorkbook())
+            {
+                var ws = wb.Worksheets.Add("Stock_Transaction");
+
+                string[] head = { "NO","Unit No", "Prod Code", "Prod Name", "Barcode", "Qty", "Selling Price", "Amount", "User", "Saved At", "Batch No"};
+                for(int c = 0; c < head.Length; c++)
+                {
+                    var h = ws.Cell(1, c + 1);
+                    h.Value = head[c];
+                    h.Style.Font.Bold = true;
+                    h.Style.Fill.BackgroundColor = XLColor.LightSeaGreen;
+                }
+                progress.Report(10);
+
+                double totalQty = 0, totalAmt = 0;
+                int row = 2, i = 0;
+                foreach(DataRow r in dt.Rows)
+                {
+                    double qty = Convert.ToDouble(r["Qty"]);
+                    double price = Convert.ToDouble(r["Selling_Price"]);
+                    double amt = qty * price;
+                    totalQty += qty;
+                    totalAmt += amt;
+
+                    ws.Cell(row, 1).Value = row - 1;
+                    ws.Cell(row, 2).Value = Convert.ToString(r["Unit_No"]);
+                    ws.Cell(row, 3).Value = Convert.ToString(r["Prod_Code"]);
+                    ws.Cell(row, 4).Value = Convert.ToString(r["Prod_Name"]);
+                    ws.Cell(row, 5).Value = Convert.ToString(r["Barcode"]);
+                    ws.Cell(row, 6).Value = qty;
+                    ws.Cell(row, 7).Value = price;
+                    ws.Cell(row, 8).Value = amt;
+                    ws.Cell(row, 9).Value = Convert.ToString(r["User_Name"]);
+                    ws.Cell(row, 10).Value = Convert.ToString(r["Saved_At"]);
+                    ws.Cell(row, 11).Value = Convert.ToString(r["Batch_No"]);
+
+                    ws.Cell(row, 5).Style.NumberFormat.Format = "@";          
+                    ws.Cell(row, 6).Style.NumberFormat.Format = "0.##";
+                    ws.Cell(row, 7).Style.NumberFormat.Format = "#,##0.00";
+                    ws.Cell(row, 8).Style.NumberFormat.Format = "#,##0.00";
+
+                    row++;
+                    i++;
+                    if (i % 100 == 0) progress.Report(10 + (int)(80L * 1 / total));
+                }
+                ws.Cell(row, 5).Value = "Total";
+                ws.Cell(row, 6).Value = totalQty;
+                ws.Cell(row, 8).Value = totalAmt;
+                ws.Cell(row, 6).Style.NumberFormat.Format = "0.##";
+                ws.Cell(row, 8).Style.NumberFormat.Format = "#,##0.00";
+                ws.Range(row, 5, row, 8).Style.Font.Bold = true;
+                progress.Report(92);
+
+                ws.SheetView.FreezeRows(1);
+                if(total <= 5000)
+                {
+                    ws.Columns().AdjustToContents();
+                }
+                else
+                {
+                    double[] w = { 6, 10, 14, 40, 18, 8, 14, 14, 18, 20, 16 };
+                    for (int c = 0; c < w.Length; c++) ws.Column(c + 1).Width = w[c];
+                }
+                progress.Report(96);
+                wb.SaveAs(path);
+            }
+            progress.Report(100);
+            return total;
         }
     }
 }

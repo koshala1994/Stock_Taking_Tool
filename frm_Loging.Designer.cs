@@ -150,6 +150,7 @@
             this.txt_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Password.Location = new System.Drawing.Point(243, 95);
             this.txt_Password.Name = "txt_Password";
+            this.txt_Password.PasswordChar = '*';
             this.txt_Password.Size = new System.Drawing.Size(437, 30);
             this.txt_Password.TabIndex = 2;
             // 
@@ -1117,6 +1118,7 @@
             // 
             // txt_Username
             // 
+            this.txt_Username.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_Username.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Username.Location = new System.Drawing.Point(243, 32);
             this.txt_Username.Name = "txt_Username";

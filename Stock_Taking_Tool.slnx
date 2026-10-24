@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="../Stock_Taking_Project/Stock_Taking_Project.vdproj" Type="Installer">
+    <Build />
+  </Project>
   <Project Path="Stock_Taking_Tool.csproj" Id="2d39a814-9d75-4c0d-ab8c-86572d2cc548" />
 </Solution>

@@ -45,10 +45,17 @@
             this.txt_Unit_No = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_Save_Path = new System.Windows.Forms.Button();
+            this.chk_Lock = new System.Windows.Forms.CheckBox();
+            this.btn_Brows = new System.Windows.Forms.Button();
+            this.txt_Path = new System.Windows.Forms.TextBox();
+            this.lbl_Path = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -65,6 +72,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
@@ -161,7 +169,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(911, 272);
+            this.tabPage2.Size = new System.Drawing.Size(911, 321);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Unit Details Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -230,13 +238,84 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btn_Save_Path);
+            this.tabPage3.Controls.Add(this.chk_Lock);
+            this.tabPage3.Controls.Add(this.btn_Brows);
+            this.tabPage3.Controls.Add(this.txt_Path);
+            this.tabPage3.Controls.Add(this.lbl_Path);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(911, 272);
+            this.tabPage3.Size = new System.Drawing.Size(911, 321);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Local Database Setting";
+            this.tabPage3.Text = "Data Export Setting";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btn_Save_Path
+            // 
+            this.btn_Save_Path.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btn_Save_Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Save_Path.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_Save_Path.Image = global::Stock_Taking_Tool.Properties.Resources.Save;
+            this.btn_Save_Path.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Save_Path.Location = new System.Drawing.Point(263, 140);
+            this.btn_Save_Path.Name = "btn_Save_Path";
+            this.btn_Save_Path.Size = new System.Drawing.Size(217, 50);
+            this.btn_Save_Path.TabIndex = 4;
+            this.btn_Save_Path.Text = "Save Path";
+            this.btn_Save_Path.UseVisualStyleBackColor = false;
+            this.btn_Save_Path.Click += new System.EventHandler(this.btn_Save_Path_Click);
+            // 
+            // chk_Lock
+            // 
+            this.chk_Lock.AutoSize = true;
+            this.chk_Lock.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_Lock.Location = new System.Drawing.Point(750, 76);
+            this.chk_Lock.Name = "chk_Lock";
+            this.chk_Lock.Size = new System.Drawing.Size(115, 24);
+            this.chk_Lock.TabIndex = 3;
+            this.chk_Lock.Text = "Lock Path";
+            this.chk_Lock.UseVisualStyleBackColor = true;
+            // 
+            // btn_Brows
+            // 
+            this.btn_Brows.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Brows.Location = new System.Drawing.Point(654, 70);
+            this.btn_Brows.Name = "btn_Brows";
+            this.btn_Brows.Size = new System.Drawing.Size(90, 37);
+            this.btn_Brows.TabIndex = 2;
+            this.btn_Brows.Text = "Braws";
+            this.btn_Brows.UseVisualStyleBackColor = true;
+            this.btn_Brows.Click += new System.EventHandler(this.btn_Brows_Click);
+            // 
+            // txt_Path
+            // 
+            this.txt_Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Path.Location = new System.Drawing.Point(166, 70);
+            this.txt_Path.Name = "txt_Path";
+            this.txt_Path.ReadOnly = true;
+            this.txt_Path.Size = new System.Drawing.Size(482, 34);
+            this.txt_Path.TabIndex = 1;
+            // 
+            // lbl_Path
+            // 
+            this.lbl_Path.AutoSize = true;
+            this.lbl_Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Path.Location = new System.Drawing.Point(23, 76);
+            this.lbl_Path.Name = "lbl_Path";
+            this.lbl_Path.Size = new System.Drawing.Size(137, 25);
+            this.lbl_Path.TabIndex = 0;
+            this.lbl_Path.Text = "Export Path :";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(911, 321);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Local Database Setting";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // frm_Setting
             // 
@@ -253,6 +332,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -276,5 +357,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btn_Cheack_MachineID;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btn_Save_Path;
+        private System.Windows.Forms.CheckBox chk_Lock;
+        private System.Windows.Forms.Button btn_Brows;
+        private System.Windows.Forms.TextBox txt_Path;
+        private System.Windows.Forms.Label lbl_Path;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }

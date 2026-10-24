@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Stock_Taking_Tool));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_Export = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pb_Download = new System.Windows.Forms.ProgressBar();
             this.btn_Cashier_Download = new System.Windows.Forms.Button();
@@ -48,12 +49,27 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btn_Export);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Location = new System.Drawing.Point(2, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2036, 898);
             this.panel1.TabIndex = 0;
+            // 
+            // btn_Export
+            // 
+            this.btn_Export.BackColor = System.Drawing.Color.LightGreen;
+            this.btn_Export.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Export.Image = global::Stock_Taking_Tool.Properties.Resources.Export;
+            this.btn_Export.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Export.Location = new System.Drawing.Point(6, 155);
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.Size = new System.Drawing.Size(235, 58);
+            this.btn_Export.TabIndex = 4;
+            this.btn_Export.Text = "Export Data";
+            this.btn_Export.UseVisualStyleBackColor = false;
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
             // 
             // panel2
             // 
@@ -142,7 +158,7 @@
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
@@ -191,6 +207,7 @@
         private System.Windows.Forms.Button btn_Counting;
         private System.Windows.Forms.Button btn_Cashier_Download;
         private System.Windows.Forms.ProgressBar pb_Download;
+        private System.Windows.Forms.Button btn_Export;
     }
 }
 
