@@ -221,17 +221,18 @@ namespace Stock_Taking_Tool
             });
             return new int[] { rows.Count, skipped };
         }
-
         private async void btn_Export_Click(object sender, EventArgs e)
         {
             string folderpath = Properties.Settings.Default.ExportPath;
+            MessageBox.Show("Saved Path: \n [" + folderpath + "]");
             if(string.IsNullOrWhiteSpace(folderpath))
             {
                 MessageBox.Show("Setup the  Export Path in Setting Tab");
                 return;
             }
-            string path = Path.Combine(folderpath, "Stock_Taking_" + DateTime.Now.ToString("ddMMyyyy_HH:mm:ss") + ".xlsx");
+            string filename  =  "Stock_Taking_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
 
+            string path = Path.Combine(folderpath.Trim(), filename);
             btn_Export.Enabled = false;
             pb_Download.Value = 0;
             pb_Download.Visible = true;
@@ -268,15 +269,40 @@ namespace Stock_Taking_Tool
         }
         private int DoExport(string path, IProgress<int> progress)
         {
-            progress.Report(5);
+            progress?.Report(5);
 
-            DataTable dt = cls_DbCreate.GetSavedTransaction();
-            int total = dt.Rows.Count;
-            if (total == 0) return 0;
+            if(string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("Export file path is empty");
+            }
+            path = path.Trim();
 
+            
+            if (!Path.IsPathRooted(path))
+            {
+                throw new ArgumentException("Export Path must be absolute path: " + path);
+            } 
+            
+            if(!string.Equals(Path.GetExtension(path), ".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Expected a complete .xlsx file path, but received: " + path);
+            }
             string dir = Path.GetDirectoryName(path);
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
+            if (string.IsNullOrWhiteSpace(dir))
+            {
+                throw new ArgumentException("Export folder is Invalid: " + path);
+            } 
+
+            Directory.CreateDirectory(dir);
+            DataTable dt = cls_DbCreate.GetSavedTransaction();
+
+            int total = dt.Rows.Count;
+
+            if(total == 0)
+            {
+                return 0;
+            }
             using (var wb = new XLWorkbook())
             {
                 var ws = wb.Worksheets.Add("Stock_Transaction");
@@ -341,6 +367,7 @@ namespace Stock_Taking_Tool
                     for (int c = 0; c < w.Length; c++) ws.Column(c + 1).Width = w[c];
                 }
                 progress.Report(96);
+                MessageBox.Show("Path : ["+ path +"]\n" + "Extension: [" + Path.GetExtension(path)+ "]");
                 wb.SaveAs(path);
             }
             progress.Report(100);

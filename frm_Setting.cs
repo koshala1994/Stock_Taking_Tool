@@ -20,7 +20,6 @@ namespace Stock_Taking_Tool
             InitializeComponent();
         }
         private bool _loadingExport = false;
-
         private void frm_Setting_Load(object sender, EventArgs e)
         {
             txt_Servername.Text = cls_MainDb.Server;
@@ -39,13 +38,12 @@ namespace Stock_Taking_Tool
             {
                 btn_Save.Enabled = false;
             }
+            InitExporTab();
         }
-
         private void txt_Servername_TextChanged(object sender, EventArgs e)
         {
             btn_Save_Connection.Enabled = true;
         }
-
         private void btn_Test_Connection_Click(object sender, EventArgs e)
         {
             if (txt_Servername.Text.Trim() == "" || txt_Databese.Text.Trim() == "")
@@ -76,14 +74,12 @@ namespace Stock_Taking_Tool
                 Cursor = Cursors.Default;
             }
         }
-
         private void btn_Save_Connection_Click(object sender, EventArgs e)
         {
             cls_MainDb.Save(txt_Servername.Text, txt_Databese.Text);
             MessageBox.Show("Saved");
             DialogResult = DialogResult.OK;
         }
-
         private void btn_Cheack_MachineID_Click(object sender, EventArgs e)
         {
             string id = cls_MachineInfo.GetprocessorId();
@@ -97,17 +93,14 @@ namespace Stock_Taking_Tool
             txt_Unit_No.Focus();
             btn_Save.Enabled = true;
         }
-
         private void txtUnitNo_TextChanged(object sender, EventArgs e)
         {
             UpdateSaveStatus();
         }
-
         private void UpdateSaveStatus()
         {
             btn_Save.Enabled = txt_Unit_No.ReadOnly && txt_Unit_No.Text.Trim() != "" && txt_Machine_id.Text.Trim() != "";
         }
-
         private void btn_Save_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("if unit number is saved", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
@@ -135,16 +128,21 @@ namespace Stock_Taking_Tool
         {
             btn_Brows.Click -= btn_Brows_Click;
             btn_Brows.Click += btn_Brows_Click;
+
             btn_Save_Path.Click -= btn_Save_Path_Click;
             btn_Save_Path.Click += btn_Save_Path_Click;
+
             chk_Lock.CheckedChanged -= chk_Lock_CheckedChanged;
             chk_Lock.CheckedChanged += chk_Lock_CheckedChanged;
 
             txt_Path.ReadOnly = true;
 
             _loadingExport = true;
+
+            Properties.Settings.Default.Reload();
             txt_Path.Text = Properties.Settings.Default.ExportPath;
             chk_Lock.Checked = Properties.Settings.Default.ExportLocked;
+
             _loadingExport = false;
 
             ApplyLock();
@@ -152,27 +150,34 @@ namespace Stock_Taking_Tool
         private void ApplyLock()
         {
             bool locked = chk_Lock.Checked;
+            
             btn_Save_Path.Enabled = !locked;
             btn_Brows.Enabled = !locked;
+            
+            txt_Path.ReadOnly = true;
         }
         private void chk_Lock_CheckedChanged(object sender, EventArgs e)
         {
-            if(!_loadingExport && chk_Lock.Checked && string.IsNullOrWhiteSpace(Properties.Settings.Default.ExportPath))
+            if(_loadingExport)
             {
-                MessageBox.Show("Save the Path");
+                return;
+            }
+            if(chk_Lock.Checked && string.IsNullOrWhiteSpace(Properties.Settings.Default.ExportPath))
+            {
+                MessageBox.Show("Plase Save the Export Path first.");
+
                 _loadingExport = true;
                 chk_Lock.Checked = false;
                 _loadingExport = false;
+
                 ApplyLock();
                 return;
             }
-            ApplyLock();
-            if (_loadingExport) return;
-
             Properties.Settings.Default.ExportLocked = chk_Lock.Checked;
             Properties.Settings.Default.Save();
-        }
 
+            ApplyLock();
+        }
         private void btn_Brows_Click(object sender, EventArgs e)
         {
             using(var dlg = new FolderBrowserDialog())
@@ -183,32 +188,42 @@ namespace Stock_Taking_Tool
                 if (dlg.ShowDialog(this) == DialogResult.OK) txt_Path.Text = dlg.SelectedPath;
             }
         }
-
         private void btn_Save_Path_Click(object sender, EventArgs e)
         {
             string p = txt_Path.Text.Trim();
-            if(p =="")
+            if(string.IsNullOrWhiteSpace(p))
             {
                 MessageBox.Show("brows the Path");
                 return;
             }
             try
             {
-                if (!Directory.Exists(p)) Directory.CreateDirectory(p);
+                if (!Directory.Exists(p))
+                {
+                    Directory.CreateDirectory(p);
+                }
+                Properties.Settings.Default.ExportPath = p;
+                Properties.Settings.Default.ExportLocked = true;
+
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                MessageBox.Show("Saved Path: \n" + Properties.Settings.Default.ExportPath);
+
+                _loadingExport = true;
+                txt_Path.Text = Properties.Settings.Default.ExportPath;
+                chk_Lock.Checked = Properties.Settings.Default.ExportLocked;
+                _loadingExport = false;
+
+                ApplyLock();
+
+                MessageBox.Show("Export Path Sved Successfully! \n" + p);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Cant be Create this Path : \n" + ex.Message);
-                return;
-                throw;
+                _loadingExport = false;
+                MessageBox.Show("Canot Save Export: \n" + ex.Message);
             }
-            Properties.Settings.Default.ExportPath = p;
-            Properties.Settings.Default.ExportLocked = true;
-            Properties.Settings.Default.Save();
-
-            chk_Lock.Checked = true;
-            MessageBox.Show("Saved the Export Path: \n" + p);
         }
-
     }
 }
