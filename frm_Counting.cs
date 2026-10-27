@@ -22,6 +22,11 @@ namespace Stock_Taking_Tool
         {
             InitializeComponent();
         }
+        private void ForcusItemEntry()
+        {
+            if (txt_Item_enter == null || txt_Item_enter.IsDisposed || !txt_Item_enter.IsHandleCreated) return;
+            if (!txt_Item_enter.Focused) { txt_Item_enter.Focus(); }
+        }
         private void frm_Counting_Load(object sender, EventArgs e)
         {
             btn_Item_Find.Click += btn_Item_Find_Click;
@@ -97,7 +102,7 @@ namespace Stock_Taking_Tool
             {
                 MessageBox.Show("Item Not Find");
                 txt_Item_enter.SelectAll();
-                txt_Item_enter.Focus();
+                ForcusItemEntry();
                 return;
             }
             cls_Item item;
@@ -124,7 +129,7 @@ namespace Stock_Taking_Tool
                     if(!q.Accepted)
                     {
                         txt_Item_enter.SelectAll();
-                        txt_Item_enter.Focus();
+                        ForcusItemEntry();
                         return;
                     }
                     qty = q.Qty;
@@ -138,23 +143,23 @@ namespace Stock_Taking_Tool
 
             txt_Item_enter.Clear();
             LoadGrid();
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
         }
         private void KeyPad_Click(object sender, EventArgs e)
         {
             txt_Item_enter.Text += ((Button)sender).Text;
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
             txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
         }
         private void btn_Clear_Click(object sender, EventArgs e)
         {
             txt_Item_enter.Clear();
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
         }
         private void btn_Back_Click(object sender, EventArgs e)
         {
             if (txt_Item_enter.Text.Length > 0) txt_Item_enter.Text = txt_Item_enter.Text.Substring(0, txt_Item_enter.Text.Length - 1);
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
             txt_Item_enter.SelectionStart = txt_Item_enter.Text.Length;
         }
         private void btn_Item_Find_Click(object sender, EventArgs e)
@@ -205,7 +210,7 @@ namespace Stock_Taking_Tool
             _laseVoid = DateTime.Now;
 
             LoadGrid();
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
         }
         private void btn_Void_Click(object sender, EventArgs e)
         {
@@ -292,7 +297,7 @@ namespace Stock_Taking_Tool
             }
             if (printAfter) PrintData(snapshot);
 
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
         }
         private void PrintData(DataTable data)
         {
@@ -316,7 +321,7 @@ namespace Stock_Taking_Tool
                 dlg.Document = doc;
                 doc.Print();
             }
-            txt_Item_enter.Focus();
+            ForcusItemEntry();
         }
         private void Doc_PrintPage(Object sender, PrintPageEventArgs e)
         {
@@ -370,6 +375,11 @@ namespace Stock_Taking_Tool
                     e.HasMorePages = false;
                 }
             }
+        }
+
+        private void frm_Counting_Activated(object sender, EventArgs e)
+        {
+            ForcusItemEntry();
         }
     }
 }

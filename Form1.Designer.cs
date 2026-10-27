@@ -52,9 +52,9 @@
             this.panel1.Controls.Add(this.btn_Export);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.menuStrip1);
-            this.panel1.Location = new System.Drawing.Point(2, 3);
+            this.panel1.Location = new System.Drawing.Point(2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2036, 898);
+            this.panel1.Size = new System.Drawing.Size(866, 346);
             this.panel1.TabIndex = 0;
             // 
             // btn_Export
@@ -65,7 +65,7 @@
             this.btn_Export.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Export.Location = new System.Drawing.Point(6, 155);
             this.btn_Export.Name = "btn_Export";
-            this.btn_Export.Size = new System.Drawing.Size(235, 58);
+            this.btn_Export.Size = new System.Drawing.Size(272, 67);
             this.btn_Export.TabIndex = 4;
             this.btn_Export.Text = "Export Data";
             this.btn_Export.UseVisualStyleBackColor = false;
@@ -80,14 +80,14 @@
             this.panel2.Controls.Add(this.btn_Download);
             this.panel2.Location = new System.Drawing.Point(3, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(755, 118);
+            this.panel2.Size = new System.Drawing.Size(858, 118);
             this.panel2.TabIndex = 1;
             // 
             // pb_Download
             // 
             this.pb_Download.Location = new System.Drawing.Point(3, 67);
             this.pb_Download.Name = "pb_Download";
-            this.pb_Download.Size = new System.Drawing.Size(749, 46);
+            this.pb_Download.Size = new System.Drawing.Size(849, 46);
             this.pb_Download.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pb_Download.TabIndex = 3;
             this.pb_Download.Visible = false;
@@ -98,9 +98,9 @@
             this.btn_Cashier_Download.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Cashier_Download.Image = global::Stock_Taking_Tool.Properties.Resources.Account;
             this.btn_Cashier_Download.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Cashier_Download.Location = new System.Drawing.Point(241, 3);
+            this.btn_Cashier_Download.Location = new System.Drawing.Point(264, 3);
             this.btn_Cashier_Download.Name = "btn_Cashier_Download";
-            this.btn_Cashier_Download.Size = new System.Drawing.Size(270, 58);
+            this.btn_Cashier_Download.Size = new System.Drawing.Size(312, 58);
             this.btn_Cashier_Download.TabIndex = 2;
             this.btn_Cashier_Download.Text = "Cashier Download";
             this.btn_Cashier_Download.UseVisualStyleBackColor = false;
@@ -112,9 +112,9 @@
             this.btn_Counting.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Counting.Image = global::Stock_Taking_Tool.Properties.Resources.stocktaking;
             this.btn_Counting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Counting.Location = new System.Drawing.Point(517, 3);
+            this.btn_Counting.Location = new System.Drawing.Point(582, 3);
             this.btn_Counting.Name = "btn_Counting";
-            this.btn_Counting.Size = new System.Drawing.Size(235, 58);
+            this.btn_Counting.Size = new System.Drawing.Size(270, 58);
             this.btn_Counting.TabIndex = 1;
             this.btn_Counting.Text = "Stock Counting";
             this.btn_Counting.UseVisualStyleBackColor = false;
@@ -128,7 +128,7 @@
             this.btn_Download.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Download.Location = new System.Drawing.Point(3, 3);
             this.btn_Download.Name = "btn_Download";
-            this.btn_Download.Size = new System.Drawing.Size(232, 58);
+            this.btn_Download.Size = new System.Drawing.Size(255, 58);
             this.btn_Download.TabIndex = 0;
             this.btn_Download.Text = "Item Download";
             this.btn_Download.UseVisualStyleBackColor = false;
@@ -143,7 +143,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(2034, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(864, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -178,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 447);
+            this.ClientSize = new System.Drawing.Size(870, 349);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;

@@ -124,6 +124,19 @@ namespace Stock_Taking_Tool
             txt_Machine_id.ReadOnly = true;
             btn_Save.Enabled = false;
         }
+        private static bool GetExportLocked()
+        {
+            try
+            {
+                object v = Properties.Settings.Default["GetExportLocked"];
+                return v != null && Convert.ToBoolean(v);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
         private void InitExporTab()
         {
             btn_Brows.Click -= btn_Brows_Click;
@@ -140,8 +153,8 @@ namespace Stock_Taking_Tool
             _loadingExport = true;
 
             Properties.Settings.Default.Reload();
-            txt_Path.Text = Properties.Settings.Default.ExportPath;
-            chk_Lock.Checked = Properties.Settings.Default.ExportLocked;
+            txt_Path.Text = Properties.Settings.Default.ExportPath ?? "";
+            chk_Lock.Checked = GetExportLocked();
 
             _loadingExport = false;
 

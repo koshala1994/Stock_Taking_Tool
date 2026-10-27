@@ -22,6 +22,93 @@ namespace Stock_Taking_Tool
         public frm_Stock_Taking_Tool()
         {
             InitializeComponent();
+            ApplyModernDesign();
+        }
+        private void ApplyModernDesign()
+        {
+            // Main Form - existing size and layout preserved
+            this.Text = "Onimta Stock Taking Tool";
+            this.BackColor = Color.FromArgb(243, 247, 252);
+            this.Font = new Font("Segoe UI", 9.5F);
+
+            // Apply modern styles to existing controls
+            ApplyControlStyles(this.Controls);
+        }
+
+        private void ApplyControlStyles(Control.ControlCollection controls)
+        {
+            foreach (Control c in controls)
+            {
+                // MenuStrip: keep existing File, Report, About items
+                if (c is MenuStrip menu)
+                {
+                    menu.BackColor = Color.White;
+                    menu.ForeColor = Color.FromArgb(35, 49, 69);
+                    menu.Font = new Font("Segoe UI", 9.5F);
+                    menu.RenderMode = ToolStripRenderMode.Professional;
+                }
+
+                // Existing ProgressBar: keep its position and size
+                if (c is ProgressBar progress)
+                {
+                    progress.Minimum = 0;
+                    progress.Maximum = 100;
+                    progress.Style = ProgressBarStyle.Continuous;
+                }
+
+                // Style existing buttons without changing their size
+                if (c is Button btn)
+                {
+                    string caption = btn.Text.ToLowerInvariant();
+                    Color buttonColor = Color.FromArgb(66, 85, 110);
+
+                    if (caption.Contains("item") &&
+                        caption.Contains("download"))
+                    {
+                        buttonColor = Color.FromArgb(45, 112, 220);
+                    }
+                    else if (caption.Contains("cashier"))
+                    {
+                        buttonColor = Color.FromArgb(25, 157, 128);
+                    }
+                    else if (caption.Contains("stock") ||
+                             caption.Contains("counting"))
+                    {
+                        buttonColor = Color.FromArgb(119, 86, 218);
+                    }
+                    else if (caption.Contains("export"))
+                    {
+                        buttonColor = Color.FromArgb(238, 139, 35);
+                    }
+
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderSize = 0;
+                    btn.FlatAppearance.MouseOverBackColor =
+                        ControlPaint.Dark(buttonColor, 0.08F);
+
+                    btn.BackColor = buttonColor;
+                    btn.ForeColor = Color.White;
+                    btn.UseVisualStyleBackColor = false;
+                    btn.Font = new Font("Segoe UI Semibold", 10.5F);
+                    btn.Cursor = Cursors.Hand;
+
+                    // Intentionally do not change:
+                    // btn.Size, btn.Location, btn.Name,
+                    // btn.Click or existing image settings.
+                }
+
+                // Style existing panels without changing layout
+                if (c is Panel panel)
+                {
+                    panel.BackColor = Color.FromArgb(243, 247, 252);
+                }
+
+                // Apply recursively to controls inside panels
+                if (c.HasChildren)
+                {
+                    ApplyControlStyles(c.Controls);
+                }
+            }
         }
         private bool AdminLoging()
         {

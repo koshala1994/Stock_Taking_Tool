@@ -61,6 +61,7 @@ namespace Stock_Taking_Tool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ExportLocked {
             get {
                 return ((bool)(this["ExportLocked"]));

@@ -37,6 +37,7 @@ namespace Stock_Taking_Tool
             if ((e.KeyChar >= '0' && e.KeyChar <= '9') ||
                 (e.KeyChar >= 'a' && e.KeyChar <= 'z') ||
                 (e.KeyChar >= 'A' && e.KeyChar <= 'Z')) return;
+            if (e.KeyChar == '+' || e.KeyChar == '-' || e.KeyChar == '*' || e.KeyChar == '/' || e.KeyChar == '=' || e.KeyChar == '!' || e.KeyChar == '@' || e.KeyChar == '#' || e.KeyChar == '$' || e.KeyChar == '%' || e.KeyChar == '^' || e.KeyChar == '&' || e.KeyChar == '('|| e.KeyChar == ')') return;
             e.Handled = true;
         }
         private string CheackLoging(string user,string pass)
